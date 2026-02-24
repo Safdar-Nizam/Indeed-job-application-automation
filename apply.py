@@ -663,47 +663,77 @@ def force_fill_blanks(driver):
     except Exception:
         pass
 
-    # Handle unchecked required radios
+    # Comprehensive radio button sweep — group ALL radios by name attribute
     try:
-        fieldsets = driver.find_elements(By.TAG_NAME, "fieldset")
-        for fs in fieldsets:
-            radios = fs.find_elements(By.CSS_SELECTOR, 'input[type="radio"]')
-            if radios and not any(r.is_selected() for r in radios):
-                for r in radios:
-                    try:
-                        label = r.find_element(By.XPATH, "./ancestor::label | ./following-sibling::label | ../label")
-                        if "yes" in label.text.lower():
-                            label.click()
-                            break
-                    except Exception:
-                        continue
-                else:
-                    try:
-                        radios[0].find_element(By.XPATH, "./ancestor::label | ../label").click()
-                    except Exception:
-                        pass
-    except Exception:
-        pass
+        all_radios = driver.find_elements(By.CSS_SELECTOR, 'input[type="radio"]')
+        radio_groups = {}
+        for radio in all_radios:
+            try:
+                name = radio.get_attribute("name")
+                if name:
+                    if name not in radio_groups:
+                        radio_groups[name] = []
+                    radio_groups[name].append(radio)
+            except Exception:
+                continue
 
-    # Also handle non-required but visible empty radios in question containers
-    try:
-        containers = driver.find_elements(By.CSS_SELECTOR, '.ia-Questions-item, [data-testid="question-container"]')
-        for cont in containers:
-            radios = cont.find_elements(By.CSS_SELECTOR, 'input[type="radio"]')
-            if radios and not any(r.is_selected() for r in radios):
-                for r in radios:
-                    try:
-                        label = r.find_element(By.XPATH, "./ancestor::label | ./following-sibling::label | ../label")
-                        if "yes" in label.text.lower():
+        for name, radios in radio_groups.items():
+            # Skip if any radio in this group is already selected
+            try:
+                if any(r.is_selected() for r in radios):
+                    continue
+            except Exception:
+                continue
+
+            # Try to click "Yes" first
+            clicked = False
+            for r in radios:
+                try:
+                    label = None
+                    # Strategy 1: label[for="id"]
+                    radio_id = r.get_attribute("id")
+                    if radio_id:
+                        try:
+                            label = driver.find_element(By.CSS_SELECTOR, f'label[for="{radio_id}"]')
+                        except Exception:
+                            pass
+                    # Strategy 2: ancestor/sibling label
+                    if not label:
+                        try:
+                            label = r.find_element(By.XPATH,
+                                "./ancestor::label | ./following-sibling::label | ../label")
+                        except Exception:
+                            pass
+
+                    if label and "yes" in label.text.strip().lower():
+                        try:
                             label.click()
-                            break
-                    except Exception:
-                        continue
-                else:
-                    try:
-                        radios[0].find_element(By.XPATH, "./ancestor::label | ../label").click()
-                    except Exception:
-                        pass
+                        except Exception:
+                            try:
+                                driver.execute_script("arguments[0].click();", label)
+                            except Exception:
+                                driver.execute_script("arguments[0].click();", r)
+                        clicked = True
+                        time.sleep(0.15)
+                        break
+                except Exception:
+                    continue
+
+            # If no "Yes" found, click the first option
+            if not clicked and radios:
+                try:
+                    r = radios[0]
+                    radio_id = r.get_attribute("id")
+                    if radio_id:
+                        try:
+                            label = driver.find_element(By.CSS_SELECTOR, f'label[for="{radio_id}"]')
+                            label.click()
+                            continue
+                        except Exception:
+                            pass
+                    driver.execute_script("arguments[0].click();", r)
+                except Exception:
+                    pass
     except Exception:
         pass
 
