@@ -148,7 +148,8 @@ The project consists of three files:
 
 | File | Purpose |
 |------|---------|
-| **`config.py`** | All your personal data, search queries, job filters, timing settings, and experience mappings. **This is the only file you need to edit.** |
+| **`config.example.py`** | Template with placeholder values. Copy to `config.py` and fill in your real data. |
+| **`config.py`** | *(gitignored)* Your personal config — search queries, personal info, job filters, timing, experience. |
 | **`apply.py`** | The main automation engine — browser control, form filling, question answering, search & pagination, application flow. |
 | **`launcher.py`** | A tiny wrapper that launches `apply.py` in a detached subprocess (optional convenience script). |
 
@@ -212,6 +213,18 @@ That's it! Only two packages are needed:
 |---------|---------|
 | `undetected-chromedriver` | Launches Chrome in a way that bypasses bot detection |
 | `selenium` | Controls the browser — clicking, typing, navigating |
+
+### 4. Set Up Your Config
+
+```bash
+# Copy the example config and fill in your details
+copy config.example.py config.py    # Windows
+cp config.example.py config.py      # macOS/Linux
+```
+
+Then open `config.py` and replace all the placeholder values with your real information (see [Configuration](#-configuration) below).
+
+> **Important:** `config.py` is gitignored so your personal data is never pushed to GitHub. Only `config.example.py` (with placeholders) is in the repo.
 
 ---
 

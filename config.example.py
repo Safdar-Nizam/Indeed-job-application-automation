@@ -4,37 +4,11 @@ import random
 # SEARCH QUERIES — (search_term, location, max_pages)
 # ──────────────────────────────────────────────
 search_queries = [
-    ("machine learning engineer", "Florida", 3),
-    ("AI engineer", "Florida", 3),
-    ("software engineer AI", "Florida", 3),
-    ("data scientist", "Florida", 3),
-    ("python developer", "Florida", 3),
-    ("data engineer", "Florida", 3),
-    ("software engineer", "Boca Raton, FL", 3),
-    ("software engineer", "Miami, FL", 3),
-    ("cloud engineer", "Florida", 3),
-    ("ServiceNow developer", "Florida", 3),
-    ("integration engineer", "Florida", 3),
-    ("automation engineer", "Florida", 3),
-    ("system administrator", "Florida", 3),
-    ("machine learning engineer", "Remote", 3),
-    ("AI engineer", "Remote", 3),
-    ("software engineer", "Remote", 3),
-    ("python developer", "Remote", 3),
+    ("software engineer", "New York, NY", 3),
     ("data scientist", "Remote", 3),
-    ("data engineer", "Remote", 3),
-    ("cloud engineer", "Remote", 3),
-    ("ServiceNow developer", "Remote", 3),
-    ("integration engineer", "Remote", 3),
-    ("automation engineer", "Remote", 3),
-    ("system administrator", "Remote", 3),
-    ("machine learning engineer", "United States", 3),
-    ("artificial intelligence engineer", "United States", 3),
+    ("python developer", "California", 3),
+    ("machine learning engineer", "Remote", 3),
     ("cloud engineer", "United States", 3),
-    ("ServiceNow developer", "United States", 3),
-    ("system administrator", "United States", 3),
-    ("data scientist", "United States", 3),
-    ("data engineer", "United States", 3),
 ]
 
 # Jobs to SKIP even if title keywords match
@@ -50,7 +24,8 @@ title_blacklist = [
 ]
 
 company_blacklist = [
-    "adnet systems", "adnet",
+    # Add companies you want to skip, e.g.:
+    # "scam company inc",
 ]
 
 title_keywords = [
@@ -87,26 +62,26 @@ scroll_delay = (0.2, 0.5)
 # ──────────────────────────────────────────────
 # RESUME
 # ──────────────────────────────────────────────
-resume_path = r"C:\Users\sfdrn\OneDrive\Desktop\Safdar_Nizam.pdf"
+resume_path = r"C:\path\to\your\Resume.pdf"
 
 # ──────────────────────────────────────────────
 # PERSONAL
 # ──────────────────────────────────────────────
-add_firstname = "Safdar"
-add_lastname = "Nizam"
-add_phone = "5615524957"
-add_email = "safdarnizam28@gmail.com"
-add_address = "581 Lavers Cir"
-add_city = "Delray Beach"
-add_state = "FL"
-add_postal = "33444"
+add_firstname = "John"
+add_lastname = "Doe"
+add_phone = "5551234567"
+add_email = "john.doe@email.com"
+add_address = "123 Main Street"
+add_city = "New York"
+add_state = "NY"
+add_postal = "10001"
 add_country = "US"
 
-add_linkedin = "https://www.linkedin.com/in/safdarnizam/"
+add_linkedin = "https://www.linkedin.com/in/johndoe/"
 add_github = ""
 add_portfolio = ""
 
-add_university = "Florida Atlantic University"
+add_university = "Your University"
 add_education = "Master"
 add_degree = "Master of Computer Science"
 add_graduation_year = "2025"
@@ -124,15 +99,15 @@ add_valid_cert = "Yes"
 add_available = "Yes"
 add_shift = "Day shift"
 add_interview_dates = "Available immediately"
-add_salary = "113000"
+add_salary = "120000"
 
 add_gender = "Male"
 add_veteran = "No"
 add_disability = "No"
 
-add_company = "Help Us Grow"
+add_company = "Your Current Company"
 add_pronouns = "He/Him"
-add_race = "Asian"
+add_race = "Your Race"
 
 # ──────────────────────────────────────────────
 # EXPERIENCE
